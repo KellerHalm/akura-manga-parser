@@ -124,7 +124,7 @@ class DesuParser {
 void main() async {
   final parser = DesuParser();
   const url = 'https://desu.uno/manga/rengoku-deadroll.1400/vol1/ch1/rus';
-  const downloadDirectory = 'manga_pages'; 
+  const downloadDirectory = 'desu_pages'; 
 
   print('Начинаю парсинг и скачивание: $url');
 

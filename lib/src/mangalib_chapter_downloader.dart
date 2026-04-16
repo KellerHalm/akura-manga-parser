@@ -11,8 +11,6 @@ Future<void> main(List<String> args) async {
   print('--- MangaLib Chapter Downloader ---');
   print('Target URL: $originalUrl');
 
-  // 1. Извлекаем slug манги и параметры главы из URL
-  // Пример: https://mangalib.me/ru/65356--chainsaw-man.../read/v1/c1?bid=21780
   final uri = Uri.parse(originalUrl);
   final pathSegments = uri.pathSegments;
   
@@ -22,7 +20,7 @@ Future<void> main(List<String> args) async {
   String? branchId;
 
   try {
-    mangaSlug = pathSegments[1]; // 65356--chainsaw-man...
+    mangaSlug = pathSegments[1]; 
     volume = pathSegments[pathSegments.indexOf('read') + 1].replaceFirst('v', '');
     number = pathSegments[pathSegments.indexOf('read') + 2].replaceFirst('c', '');
     branchId = uri.queryParameters['bid'];
@@ -35,11 +33,10 @@ Future<void> main(List<String> args) async {
     print('Warning: bid (branch_id) not found in URL. Attempting to fetch without it...');
   }
 
-  // 2. Формируем URL для API
   final apiUrl = 'https://api.cdnlibs.org/api/manga/$mangaSlug/chapter?number=$number&volume=$volume${branchId != null ? "&branch_id=$branchId" : ""}';
   print('API URL: $apiUrl');
 
-  final directory = Directory('manga_pg');
+  final directory = Directory('mangalib_pages');
   if (!await directory.exists()) {
     await directory.create();
   }
@@ -68,7 +65,6 @@ Future<void> main(List<String> args) async {
     
     print('Found ${pages.length} pages. Starting download...');
 
-    // Используем стандартный домен для изображений
     const String imageServer = 'https://img3.mixlib.me';
 
     for (var i = 0; i < pages.length; i++) {
